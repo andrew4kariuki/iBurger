@@ -1,0 +1,22 @@
+.OrderSummary {}
+
+.OrderSummary h3 {
+    font-size: 20px;
+    font-weight: bolder;
+    text-align: center;
+}
+
+.OrderSummary p {
+    text-align: center;
+}
+
+.OrderSummary ul li {
+    list-style: none;
+    margin: 0;
+}
+
+.OrderSummary ul li span {
+    font-weight: bold;
+    font: inherit;
+    font-size: 18px;
+}

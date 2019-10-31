@@ -26,6 +26,7 @@ class BurgerBuilder extends Component {
   };
 
   componentDidMount() {
+    console.log(this.props);
     axios
       .get("https://iburger-f2fb4.firebaseio.com/ingredients.json")
       .then(response => {
@@ -45,34 +46,25 @@ class BurgerBuilder extends Component {
   };
 
   purchaseContinueHandler = () => {
+    const queryParams = [];
+
+    for (let i in this.state.ingredients) {
+      queryParams.push(
+        encodeURIComponent(i) +
+          "=" +
+          encodeURIComponent(this.state.ingredients[i]),
+      );
+    }
+
+    queryParams.push("price=" + this.state.totalPrice);
+
+    const queryString = queryParams.join("&");
+
+    this.props.history.push({
+      pathname: "/checkout",
+      search: "?" + queryString,
+    });
     //alert("You Continued");
-
-    this.setState({ loadingSpinner: true });
-    const order = {
-      ingredients: this.state.ingredients,
-      price: this.state.totalPrice,
-      deliveryMethod: "fastest",
-      oderBy: {
-        name: "Andrew Kariuki",
-        email: "andrew@kariuki.com",
-        address: {
-          street: "Miami",
-          zipCode: "80219",
-          city: "Mombasa",
-        },
-      },
-    };
-
-    axios
-      .post("/orders.json", order)
-      .then(response => {
-        // console.log(response);
-        this.setState({ loadingSpinner: false, purchasing: false });
-      })
-      .catch(error => {
-        // console.log(error);
-        this.setState({ loadingSpinner: false, purchasing: false });
-      });
   };
 
   updatePurchaseState(ingredients) {

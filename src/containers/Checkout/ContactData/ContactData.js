@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { connect } from "react-redux";
 
 import axios from "../../../axios-orders";
 
@@ -101,14 +102,14 @@ class ContactData extends Component {
 
     const formData = {};
 
-    for (let formElementIdentifier in this.state.orderForm) {
+    for (const formElementIdentifier in this.state.orderForm) {
       formData[formElementIdentifier] = this.state.orderForm[
         formElementIdentifier
       ].value;
     }
 
     const order = {
-      ingredients: this.props.ingredients,
+      ingredients: this.props.ings,
       price: this.props.price,
       orderBy: formData,
     };
@@ -123,7 +124,7 @@ class ContactData extends Component {
       });
   };
 
-  checkValidity(value, rules) {
+  checkValidity (value, rules) {
     let isValid = true;
 
     if (!rules) {
@@ -160,7 +161,7 @@ class ContactData extends Component {
 
     let formIsValid = true;
 
-    for (let inputIdentifier in updateOrderForm) {
+    for (const inputIdentifier in updateOrderForm) {
       formIsValid = updateOrderForm[inputIdentifier].valid && formIsValid;
     }
 
@@ -171,10 +172,10 @@ class ContactData extends Component {
     this.setState({ orderForm: updateOrderForm, formIsValid: formIsValid });
   };
 
-  render() {
+  render () {
     const formElementArray = [];
 
-    for (let key in this.state.orderForm) {
+    for (const key in this.state.orderForm) {
       formElementArray.push({
         id: key,
         config: this.state.orderForm[key],
@@ -213,4 +214,11 @@ class ContactData extends Component {
   }
 }
 
-export default ContactData;
+const mapStateToProps = state => {
+  return {
+    ings: state.ingredients,
+    price: state.totalPrice,
+  };
+};
+
+export default connect(mapStateToProps)(ContactData);

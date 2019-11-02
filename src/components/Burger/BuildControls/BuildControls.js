@@ -7,7 +7,7 @@ const controls = [
   { label: 'Bacon', type: 'bacon' },
   { label: 'Cheese', type: 'cheese' },
   { label: 'Meat', type: 'meat' }
-]
+];
 
 const buildControls = props => (
   <div className={classes.BuildControls}>
@@ -31,6 +31,6 @@ const buildControls = props => (
       ORDER NOW
     </button>
   </div>
-)
+);
 
-export default buildControls
+export default buildControls;

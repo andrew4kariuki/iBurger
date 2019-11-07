@@ -1,21 +1,17 @@
-import React, { Component } from 'react';
-import classes from './OrderSummary.module.css';
-import Button from '../../UI/Button/Button';
+import React, { Component } from "react";
+import classes from "./OrderSummary.module.css";
+import Button from "../../UI/Button/Button";
 
 class OrderSummary extends Component {
-  componentDidUpdate (prevProps, prevState) {
-    console.log('OrderSummary Did Update')
-  }
-
   render () {
     const ingredientSummary = Object.keys(this.props.ingredients).map(igKey => {
       return (
         <li key={igKey}>
-          <span style={{ textTransform: 'capitalize' }}>{igKey}</span>:{' '}
+          <span style={{ textTransform: "capitalize" }}>{igKey}</span>:{" "}
           {this.props.ingredients[igKey]}
         </li>
-      )
-    })
+      );
+    });
 
     return (
       <div className={classes.OrderSummary}>
@@ -31,8 +27,8 @@ class OrderSummary extends Component {
           CONTINUE
         </Button>
       </div>
-    )
+    );
   }
 }
 
-export default OrderSummary
+export default OrderSummary;

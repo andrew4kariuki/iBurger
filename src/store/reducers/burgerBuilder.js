@@ -2,17 +2,10 @@ import * as actionTypes from "../actions/actionsTypes";
 
 import { updateObject } from "../../shared/utility";
 
-const INGREDIENT_PRICES = {
-  salad: 0.5,
-  cheese: 0.4,
-  meat: 1.3,
-  bacon: 0.7,
-};
-
 const initialState = {
   ingredients: null,
   ingredientPrices: null,
-  totalPrice: 4,
+  totalPrice: null,
   error: false,
   building: false,
 };
@@ -25,7 +18,8 @@ const addIngredient = (state, action) => {
   const updatedIngredients = updateObject(state.ingredients, updatedIngredient);
   const updatedState = {
     ingredients: updatedIngredients,
-    totalPrice: state.totalPrice + INGREDIENT_PRICES[action.ingredientName],
+    totalPrice:
+      state.totalPrice + state.ingredientPrices[action.ingredientName],
     building: true,
   };
   return updateObject(state, updatedState);
@@ -38,7 +32,8 @@ const removeIngredient = (state, action) => {
   const updatedIngredients = updateObject(state.ingredients, updatedIngredient);
   const updatedState = {
     ingredients: updatedIngredients,
-    totalPrice: state.totalPrice - INGREDIENT_PRICES[action.ingredientName],
+    totalPrice:
+      state.totalPrice - state.ingredientPrices[action.ingredientName],
     building: true,
   };
   return updateObject(state, updatedState);
@@ -47,13 +42,34 @@ const removeIngredient = (state, action) => {
 const setIngredients = (state, action) => {
   return updateObject(state, {
     ingredients: action.ingredients,
-    totalPrice: 4,
     error: false,
     building: false,
   });
 };
 
 const fetchIngredientFailed = (state, action) => {
+  return updateObject(state, { error: true });
+};
+
+const setIngredientPrices = (state, action) => {
+  return updateObject(state, {
+    ingredientPrices: action.ingredientPrices,
+    error: false,
+  });
+};
+
+const fetchIngredientPricesFailed = (state, action) => {
+  return updateObject(state, { error: true });
+};
+
+const setInitialPrice = (state, action) => {
+  return updateObject(state, {
+    totalPrice: action.startPrice,
+    error: false,
+  });
+};
+
+const fetchInitialPricesFailed = (state, action) => {
   return updateObject(state, { error: true });
 };
 
@@ -70,6 +86,18 @@ const reducer = (state = initialState, action) => {
 
     case actionTypes.FETCH_INGREDIENTS_FAILED:
       return fetchIngredientFailed(state, action);
+
+    case actionTypes.SET_INGREDIENT_PRICES:
+      return setIngredientPrices(state, action);
+
+    case actionTypes.FETCH_INGREDIENT_PRICES_FAILED:
+      return fetchIngredientPricesFailed(state, action);
+
+    case actionTypes.SET_INITIAL_PRICE:
+      return setInitialPrice(state, action);
+
+    case actionTypes.FETCH_INITIAL_PRICE_FAILED:
+      return fetchInitialPricesFailed(state, action);
 
     default:
       return state;

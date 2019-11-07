@@ -1,6 +1,6 @@
-import React from 'react';
-import classes from './Burger.module.css';
-import BurgerIngredient from './BurgerIngredient/BurgerIngredient';
+import React from "react";
+import classes from "./Burger.module.css";
+import BurgerIngredient from "./BurgerIngredient/BurgerIngredient";
 
 const burger = props => {
   let transformedIngredients = Object.keys(props.ingredients)
@@ -21,8 +21,6 @@ const burger = props => {
   if (transformedIngredients.length === 0) {
     transformedIngredients = <p>Start Building your Burger</p>;
   }
-
-  console.log(transformedIngredients);
 
   return (
     <div className={classes.Burger}>

@@ -1,6 +1,6 @@
 import * as actionTypes from "../actions/actionsTypes";
 
-import { updateObject } from "../utility";
+import { updateObject } from "../../shared/utility";
 
 const INGREDIENT_PRICES = {
   salad: 0.5,
@@ -11,6 +11,7 @@ const INGREDIENT_PRICES = {
 
 const initialState = {
   ingredients: null,
+  ingredientPrices: null,
   totalPrice: 4,
   error: false,
   building: false,

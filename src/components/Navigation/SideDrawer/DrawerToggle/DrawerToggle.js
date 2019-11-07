@@ -1,5 +1,5 @@
-import React from 'react';
-import classes from './DrawerToggle.module.css';
+import React from "react";
+import classes from "./DrawerToggle.module.css";
 
 const drawerToggle = props => {
   return (
@@ -8,7 +8,7 @@ const drawerToggle = props => {
       <div></div>
       <div></div>
     </div>
-  )
+  );
 };
 
-export default drawerToggle
+export default drawerToggle;
